@@ -10,7 +10,8 @@ export class MathCard extends Component {
       numbers: [],
       expression: '',
       answer: '',
-      evaluatedTo: 'waiting'
+      evaluatedTo: 'waiting',
+      error: ''
     };
   };
 
@@ -29,6 +30,7 @@ export class MathCard extends Component {
   checkAnswer = () => {
     getAnswer(operationPairings[this.props.operation], this.state.numbers)
     .then(data => {
+      console.log(data);
       if (String(data.solution) === this.state.answer) {
         this.setState({ evaluatedTo: 'correct' })
         this.props.increaseCorrect();
@@ -38,6 +40,7 @@ export class MathCard extends Component {
         this.props.increaseIncorrect();
       }
     })
+    .catch(err => this.setState({ error: err }))
   }
 
   getNewCard = async () => {
@@ -59,6 +62,7 @@ export class MathCard extends Component {
           value={this.state.answer}
           onChange={this.updateAnswer}
         />
+        { this.state.error && <p>Oops! Try again!</p> }
         <button
           onClick={this.checkAnswer}
         >CHECK</button>
