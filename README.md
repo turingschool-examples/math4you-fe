@@ -2,6 +2,8 @@
 
 This application is **almost** complete! It is your job to add in the necessary network request so the app works as expected. You will also test this network request using Cypress. Follow the steps below carefully.
 
+![screenshot of math4you](https://user-images.githubusercontent.com/51416773/176971256-42af243f-93ed-4e38-9332-9a52acdea107.png)
+
 ### Set Up
 1. Clone down this repo and `cd` into the directory
 2. Run `npm i`
