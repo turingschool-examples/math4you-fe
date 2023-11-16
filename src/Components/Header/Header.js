@@ -1,33 +1,25 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 
-export class Header extends Component {
-  constructor() {
-    super();
-    this.state = {
-      minutesLeft: 0,
-      secondsLeft: 0
-    }
-  }
+export function Header () {
+  const [minutesLeft, setMinutesLeft] = useState(0);
+  const [secondsLeft, setSecondsLeft] = useState(0);
+
 
   countdown = () => {
     const tick = () => {
-      if(this.state.secondsLeft > 0) {
-        let newSeconds = this.state.secondsLeft - 1;
-        this.setState({
-          secondsLeft: newSeconds
-        })
+      if(secondsLeft > 0) {
+        let newSeconds = secondsLeft - 1;
+        setSecondsLeft(newSeconds)
         setTimeout(tick, 1000);
-      } else if (this.state.minutesLeft >= 1) {
-        let newMinutes = this.state.minutesLeft - 1;
-        this.setState({
-          minutesLeft: newMinutes,
-          secondsLeft: 60
-        })
+      } else if (minutesLeft >= 1) {
+        let newMinutes = minutesLeft - 1;
+        setMinutesLeft(newMinutes)
+        setSecondsLeft(60)
         setTimeout(tick, 1000);
       } else {
-        this.props.endTimer()
+        props.endTimer()
       }
     }
 
@@ -35,24 +27,22 @@ export class Header extends Component {
   }
 
   componentDidMount = async () => {
-    await this.setState({
-      minutesLeft: Math.floor(this.props.time / 60),
-      secondsLeft: this.props.time % 60
-    })
-    this.countdown();
+    await 
+    setMinutesLeft(Math.floor(props.time / 60))
+    setSecondsLeft(props.time % 60)
+    countdown()
   }
 
-  render() {
+
     return (
       <header className='Header'>
       <h1>MATH<span className='highlight-title'>4</span>YOU</h1>
-      <h2>TIME LEFT: 0{this.state.minutesLeft}:{this.state.secondsLeft < 10 ? `0${this.state.secondsLeft}` : this.state.secondsLeft}</h2>
+      <h2>TIME LEFT: 0{minutesLeft}:{secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}</h2>
       <Link to = '/select'>
       <button className='go-back-button'>GO BACK</button>
       </Link>
       </header>
     );
-  }
 };
 
 export default Header;

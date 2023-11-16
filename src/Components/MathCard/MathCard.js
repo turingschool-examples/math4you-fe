@@ -1,74 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './MathCard.css';
 import { getNumbers, writeExpression, operationPairings } from '../../problemSets';
 import { getAnswer } from '../../apiCalls/apiCalls';
 
-export class MathCard extends Component {
-  constructor() {
-    super();
-    this.state= {
-      numbers: [],
-      expression: '',
-      answer: '',
-      evaluatedTo: 'waiting',
-      error: ''
-    };
-  };
+export function MathCard() {
+  const [numbers, setNumbers] = useState([]);
+  const [expression, setExpression] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [evaluatedTo, setEvaluatedTo] = useState('waiting');
+  const [error, setError] = useState('');
+
+
 
   async componentDidMount() {
-    await this.setState({ numbers: getNumbers() })
+    await setNumbers(getNumbers())
 
-    this.setState({ expression: writeExpression(this.state.numbers, this.props.operation) })
+    setExpression(writeExpression(numbers, props.operation))
   }
 
   updateAnswer = event => {
-    this.setState({
-      answer: event.target.value
-    });
+    setAnswer(event.target.value);
   };
 
   checkAnswer = () => {
-    getAnswer(operationPairings[this.props.operation], this.state.numbers)
+    getAnswer(operationPairings[props.operation], numbers)
     .then(data => {
       console.log(data);
-      if (String(data.solution) === this.state.answer) {
-        this.setState({ evaluatedTo: 'correct' })
-        this.props.increaseCorrect();
-        setTimeout(this.getNewCard, 2500)
+      if (String(data.solution) === answer) {
+        setEvaluatedTo('correct')
+        props.increaseCorrect();
+        setTimeout(getNewCard, 2500)
       } else {
-        this.setState({ evaluatedTo: 'incorrect' })
-        this.props.increaseIncorrect();
+        setEvaluatedTo('incorrect')
+        props.increaseIncorrect();
       }
     })
-    .catch(err => this.setState({ error: err }))
+    .catch(err => setError(err))
   }
 
   getNewCard = async () => {
-    await this.setState({
-      numbers: getNumbers(),
-      answer: '',
-      evaluatedTo: 'waiting'
-    })
-
-    this.setState({ expression: writeExpression(this.state.numbers, this.props.operation) })
+    await setNumbers(getNumbers())
+      setAnswer('')
+      setEvaluatedTo('waiting')
   }
 
-  render() {
+    setExpression(writeExpression(numbers, props.operation))
+  }
+
     return (
-      <div className={`MathCard ${this.state.evaluatedTo}`}>
-        <p className='expression-text'>{this.state.expression}</p>
+      <div className={`MathCard ${evaluatedTo}`}>
+        <p className='expression-text'>{expression}</p>
         <input
           type='text'
-          value={this.state.answer}
-          onChange={this.updateAnswer}
+          value={answer}
+          onChange={updateAnswer}
         />
-        { this.state.error && <p>Oops! Try again!</p> }
+        { error && <p>Oops! Try again!</p> }
         <button
-          onClick={this.checkAnswer}
+          onClick={checkAnswer}
         >CHECK</button>
       </div>
     );
-  };
 };
 
 export default MathCard;
