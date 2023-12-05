@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MathCard.css';
 import { getNumbers, writeExpression, operationPairings } from '../../problemSets';
 import { getAnswer } from '../../apiCalls/apiCalls';
 
-export function MathCard() {
+export function MathCard(props) {
   const [numbers, setNumbers] = useState([]);
   const [expression, setExpression] = useState('');
   const [answer, setAnswer] = useState('');
   const [evaluatedTo, setEvaluatedTo] = useState('waiting');
   const [error, setError] = useState('');
 
+  useEffect(() => {
+
+    async function setNumsAndExpression() {
+      await setNumbers(getNumbers())
+      await setExpression(writeExpression(numbers, props.operation))
+    }
+    //do i need async await here?
+    setNumsAndExpression()
+
+  }, [])
 
 
-  async componentDidMount() {
-    await setNumbers(getNumbers())
-
-    setExpression(writeExpression(numbers, props.operation))
-  }
-
-  updateAnswer = event => {
+  function updateAnswer (event) {
     setAnswer(event.target.value);
   };
 
-  checkAnswer = () => {
+  function checkAnswer() {
     getAnswer(operationPairings[props.operation], numbers)
     .then(data => {
       console.log(data);
@@ -38,11 +42,10 @@ export function MathCard() {
     .catch(err => setError(err))
   }
 
-  getNewCard = async () => {
+  async function getNewCard () {
     await setNumbers(getNumbers())
       setAnswer('')
       setEvaluatedTo('waiting')
-  }
 
     setExpression(writeExpression(numbers, props.operation))
   }

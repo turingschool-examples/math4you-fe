@@ -8,18 +8,6 @@ import MathBoard from '../MathBoard/MathBoard';
 import EndPage from '../EndPage/EndPage';
 import './App.css';
 
-// class App extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       timeLeft: true,
-//       operation: '+',
-//       time: '180',
-//       numberCorrect: 0,
-//       numberIncorrect: 0
-//     }
-//   }
-
 function App () {
   const [timeLeft, setTimeLeft] = useState(true);
   const [operation, setOperation] = useState('+');
@@ -27,16 +15,16 @@ function App () {
   const [numberCorrect, setNumberCorrect] = useState(0);
   const [numberIncorrect, setNumberIncorrect] = useState(0);
 
-  startTimer = () => {
+  function startTimer () {
     setTimeLeft(true)
   }
 
-  endTimer = () => {
+  function endTimer () {
     setTimeLeft(false)
     setTimeLeft(true)
   }
 
-  updateSelections = (category, value) => {
+  function updateSelections (category, value) {
     if (category === "timeLeft") {
       setTimeLeft(value)
     } if (category === "operation") {
@@ -50,11 +38,11 @@ function App () {
     }
   }
 
-  increaseCorrect = () => {
+  function increaseCorrect () {
     setNumberCorrect(numberCorrect + 1)
   }
 
-  increaseIncorrect = () => {
+  function increaseIncorrect () {
     setNumberIncorrect(numberIncorrect + 1)
 
   }

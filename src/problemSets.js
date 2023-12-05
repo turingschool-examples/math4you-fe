@@ -12,6 +12,7 @@ export const getNumbers = () => {
 }
 
 export const writeExpression = (nums, op) => {
+  console.log('nums: ', nums, "op:", op)
   return nums.join(` ${op} `);
 }
 
