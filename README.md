@@ -1,6 +1,12 @@
 # math4you: Practicing POST Requests 
 
-This application is **almost** complete! It is your job to add in the necessary network request so the app works as expected. You will also test this network request using Cypress. Follow the steps below carefully.
+This application is **almost** complete! It is your job to add in the necessary network request so the app works as expected. 
+
+You'll notice that this codebase was built using React classes. That might seem scary, but don't worry - you got this! Feel free to poke around and look at the existing code. I bet the classes will make more sense than you think!
+
+Your challenge is to fix what's broken - the POST request. The steps are outline below.
+
+Don't overthink this one - the classes don't actually change the work you're doing here. Good luck!
 
 ![screenshot of math4you](https://user-images.githubusercontent.com/51416773/176971256-42af243f-93ed-4e38-9332-9a52acdea107.png)
 
@@ -15,12 +21,4 @@ This application is **almost** complete! It is your job to add in the necessary 
 
 ### Writing the POST
 8. Go to the `apiCalls.js` file in the FE repo
-9. Complete the function by following the steps outlined (Note: When you're done, the app should work with NO bugs!)
-
-### Testing the POST - optional 🌶 challenge
-10. Install Cypress into your FE repo
-11. Write a Cypress test that intercepts the POST request and tests the user flow: *If a user gets the answer correct, the card should be replaced with a new card* 
-12. Write a Cypress test that intercepts the POST request and tests the user flow: *If a user gets the answer wrong, the card should NOT be replaced with a new card* 
-13. (optional 🌶🌶 challenge) Write a sad path Cypress test that intercepts the POST request and stubs a response with a 500 status code. What should appear on the page if there is an error (hint: look at `MatchCard.js`)? Test that it renders as expected!
-
-#### Stuck? Reference the `Writing tests involving network requests` section of [this lesson](https://frontend.turing.edu/lessons/module-3/intro-to-cypress-testing.html)
+9. Complete the function by following the steps outlined in the comments of the function (Note: When you're done, the app should work with NO bugs!)
